@@ -1,13 +1,11 @@
-# tp_final
-TP final realizado junto a Federico Di Nardo
-
-El TP consiste en crear una página web con Wordpress.
+# TP final para la materia Administración de sistemas GNU/Linux y Virtualización 2020
+TP final realizado junto a Federico Di Nardo, el cual consiste en crear una página web con Wordpress.
 
 # Cómo utilizar estos archivos
 
 
 # 1ro: Descarga a una carpeta #
-Se encuentran los archivos docker-compose.yml y php.ini. El primero es el código fuente para ejecutar Docker y el segundo es una configuración para PHP de ejemplo.
+Se encontrarán los archivos *docker-compose.yml* y *php.ini*. El primero es el código fuente para ejecutar Docker y el segundo es una configuración para PHP de ejemplo.
 
 
 # 2do: Explicación #
@@ -15,9 +13,9 @@ Se encuentran los archivos docker-compose.yml y php.ini. El primero es el códig
 Podemos ver que se divide en tres partes principales, donde cada una de las partes va a ser un contenedor distinto. Tenemos al contenedor de la base de datos, al contenedor propio del wordpress y a un contenedor para administrar la base de datos.
 
 ##Contenido del docker-compose.yml:##
->version: '3.3'
-
->services:
+> version: '3.3'
+>
+> services:
 >        db:
 >                container_name: mysql-06
 >                env_file: .env
@@ -64,17 +62,17 @@ Podemos ver que se divide en tres partes principales, donde cada una de las part
 >                        - "8080:80"
 >                restart: ${RESTART}
 >                       
->volumes:
+> volumes:
 >        db_data: {}
 
 
 ## Container de mySQL ##
 
 Como se ve en el container de mySQL, definimos el *env_file*, en donde vamos a guardar los valores de nuestras **variables de entorno**. Justamente las variables van a estar en el fichero *.env*. las cuales son: 
->MYSQL_ROOT_PASSWORD: esta variable es obligatoria y lo que hace es especificar la contraseña que se establecerá para la cuenta root de usuario de MySQL.
->MYSQL_DATABASE:  Esta variable es opcional y lo que hace es especificar el nombre de una base de datos que se creará al iniciar la imagen.
->MYSQL_USER:  
->MYSQL_PASSWORD: estas variables son opcionales, se utilizan en conjunto para crear un nuevo usuario y establecer la contraseña de ese usuario. 
+> MYSQL_ROOT_PASSWORD: esta variable es obligatoria y lo que hace es especificar la contraseña que se establecerá para la cuenta root de usuario de MySQL.
+> MYSQL_DATABASE:  Esta variable es opcional y lo que hace es especificar el nombre de una base de datos que se creará al iniciar la imagen.
+> MYSQL_USER:  
+> MYSQL_PASSWORD: estas variables son opcionales, se utilizan en conjunto para crear un nuevo usuario y establecer la contraseña de ese usuario. 
 
 Usamos variables de entorno, porque este contenedor ya tiene en su script de inicio leer las variables de entorno y generar el archivo de configuración basado en estas variables de entorno. De esta forma yo puedo usar la misma imagen sin tener que modificar los archivos de adentro
 
@@ -91,9 +89,9 @@ Wordpress funciona en los **puertos** 80 y 443. Es muy común que estos puertos 
 
 Para que la instancia se pueda crear correctamente, vamos a declarar las siguientes **variables de entorno**. Esto va a ser muy parecido a lo que hicimos con el contenedor de la base de datos. Vamos a declarar las instancias de: 
 > WORDPRESS_DB_HOST: acá le vamos a indicar el nombre del contenedor, y le indicamos el puerto en el cual funciona el mysql
-> WORDPRESS_DB_USER:
-> WORDPRESS_DB_PASSWORD: obviamente estos datos del password tienen  que coincidir con la base de datos
-> WORDPRESS_DB_NAME: aca le ponemos el nombre de la base de datos
+  WORDPRESS_DB_USER:
+  WORDPRESS_DB_PASSWORD: obviamente estos datos del password tienen  que coincidir con la base de datos
+  WORDPRESS_DB_NAME: aca le ponemos el nombre de la base de datos
 
 
 ## Container de phpMyAdmin ##
@@ -111,30 +109,35 @@ Lo que hicimos fue hacer un script aparte del docker-compose, en donde se van a 
 En el docker-compose, se utiliza la interpolación de cadena (lo que llamamos a la notación ${} ) para asignar los valores de nuestras variables *.env* a las variables de entorno. **Este archivo debe crearse en la misma carpeta donde se descargaron los otros archivos.**
 
 **Ejemplo de archivo *.env*:**
-MYSQL_ROOT_PASSWORD=xxxxxxxx
-MYSQL_DATABASE=xxxxxxxx
-MYSQL_USER=xxxxxxxx
-MYSQL_PASSWORD=xxxxxxxx
-MYSQL_TAG=xxxxxxxx
-RESTART=always
+
+> MYSQL_ROOT_PASSWORD=xxxxxxxx
+> MYSQL_DATABASE=xxxxxxxx
+> MYSQL_USER=xxxxxxxx
+> MYSQL_PASSWORD=xxxxxxxx
+> MYSQL_TAG=xxxxxxxx
+> RESTART=always
 
 
 ## PHP.ini ##
 
 Existen algunas configuraciones recomendadas para php.ini que hacen que Wordpress funcione mejor. 
 
-> Limitar la memoria: Como podemos observar por su nombre, *memory_limit* es el comando para limitar el uso de memoria PHP en wordpress. El valor que se define debe ser mayor que el archivo que estamos intentando cargar. Esta es la memoria necesaria para cargar archivos y ejecutar comandos. 
-> Max_execution_time: Este comando define el tiempo necesario para ejecutar cada script. En otras palabras, define el tiempo que el servidor necesita para    ejecutar los comandos script. Por ejemplo, si estamos cargando un script muy grande en el servidor, tomará más de unos segundos. Por lo tanto, debemos eliminar el tiempo de ejecución o aumentarlo.
-> Post_max_size: Este comando define los datos máximos que pueden tener  una publicación. Para eliminar la limitación, cambiamos el valor a 0. Al usar método POST podemos llamar a la publicación desde el servidor.
-> Upload_max_filesize: Este comando define el archivo máximo que podemos cargar en Wordpress. Podemos ver el número máximo de carga en la galería de Wordpress. Este comando es quien define esa limitación. Si tenemos un problema del error de agotamiento del límite de memoria, este comando debe ser eliminado o aumentado.
-> Max_input_time: Este comando define los tiempos necesarios para que cada dato sea analizado. Datos como POST y GET. El tiempo comienza exactamente cuando el comando hace la solicitud al PHP del servidor y termina cuando se inicia el comando. El valor predeterminado es -1; para eliminar esta limitación, se debe colocar 0.
++ Limitar la memoria: Como podemos observar por su nombre, *memory_limit* es el comando para limitar el uso de memoria PHP en wordpress. El valor que se define debe ser mayor que el archivo que estamos intentando cargar. Esta es la memoria necesaria para cargar archivos y ejecutar comandos. 
+
++ Max_execution_time: Este comando define el tiempo necesario para ejecutar cada script. En otras palabras, define el tiempo que el servidor necesita para    ejecutar los comandos script. Por ejemplo, si estamos cargando un script muy grande en el servidor, tomará más de unos segundos. Por lo tanto, debemos eliminar el tiempo de ejecución o aumentarlo.
+
++ Post_max_size: Este comando define los datos máximos que pueden tener  una publicación. Para eliminar la limitación, cambiamos el valor a 0. Al usar método POST podemos llamar a la publicación desde el servidor.
+
++ Upload_max_filesize: Este comando define el archivo máximo que podemos cargar en Wordpress. Podemos ver el número máximo de carga en la galería de Wordpress. Este comando es quien define esa limitación. Si tenemos un problema del error de agotamiento del límite de memoria, este comando debe ser eliminado o aumentado.
+
++ Max_input_time: Este comando define los tiempos necesarios para que cada dato sea analizado. Datos como POST y GET. El tiempo comienza exactamente cuando el comando hace la solicitud al PHP del servidor y termina cuando se inicia el comando. El valor predeterminado es -1; para eliminar esta limitación, se debe colocar 0.
 
 
 # 3do: Cómo correrlo #
 
 Para poder ejecutar el *docker-compose.yml* utilizar los siguientes comandos:
 > sudo docker-compose build *(la primera vez)*
-> sudo docker-compose up
+sudo docker-compose up
 
 Para ir a la página web creada, debemos ir al brower y escribir en la barra de direcciones: *localhost:8080*
 
