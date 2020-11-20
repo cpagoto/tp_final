@@ -109,14 +109,14 @@ Lo que hicimos fue hacer un script aparte del docker-compose, en donde se van a 
 En el docker-compose, se utiliza la interpolación de cadena (lo que llamamos a la notación ${} ) para asignar los valores de nuestras variables *.env* a las variables de entorno. **Este archivo debe crearse en la misma carpeta donde se descargaron los otros archivos.**
 
 **Ejemplo de archivo *.env*:**
-
-> MYSQL_ROOT_PASSWORD=xxxxxxxx
-  MYSQL_DATABASE=xxxxxxxx
-  MYSQL_USER=xxxxxxxx
-  MYSQL_PASSWORD=xxxxxxx
-  MYSQL_TAG=xxxxxxxx
-  RESTART=always
-
+```
+MYSQL_ROOT_PASSWORD=xxxxxxxx
+MYSQL_DATABASE=xxxxxxxx
+MYSQL_USER=xxxxxxxx
+MYSQL_PASSWORD=xxxxxxx
+MYSQL_TAG=xxxxxxxx
+RESTART=always
+```
 
 #### PHP.ini
 
@@ -136,8 +136,10 @@ Existen algunas configuraciones recomendadas para php.ini que hacen que Wordpres
 ### 3do: Cómo correrlo
 
 Para poder ejecutar el *docker-compose.yml* utilizar los siguientes comandos:
-> sudo docker-compose build *(la primera vez)*
-> sudo docker-compose up
+```
+sudo docker-compose build *(la primera vez)*
+sudo docker-compose up
+```
 
 Para ir a la página web creada, debemos ir al brower y escribir en la barra de direcciones: *localhost:8080*
 
