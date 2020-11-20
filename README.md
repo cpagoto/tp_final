@@ -1,5 +1,5 @@
 # TP final para la materia Administración de sistemas GNU/Linux y Virtualización 2020
-TP final realizado junto a Federico Di Nardo, el cual consiste en crear una página web con Wordpress.
+TP final realizado junto a Federico Di Nardo, el cual consiste en crear una página web con Wordpress con Docker.
 
 ## Cómo utilizar estos archivos
 
@@ -13,57 +13,59 @@ Se encontrarán los archivos *docker-compose.yml* y *php.ini*. El primero es el 
 Podemos ver que se divide en tres partes principales, donde cada una de las partes va a ser un contenedor distinto. Tenemos al contenedor de la base de datos, al contenedor propio del wordpress y a un contenedor para administrar la base de datos.
 
 **Contenido del docker-compose.yml:**
-> version: '3.3'
->
-> services:
->        db:
->                container_name: mysql-06
->                env_file: .env
->                image: mysql:${MYSQL_TAG}
->                volumes:
->                        - ./db_data:/var/lib/mysql
->                environment:
->                        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
->                        MYSQL_DATABASE: ${MYSQL_DATABASE}
->                        MYSQL_USER: ${MYSQL_USER}
->                        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
->
->        wordpress:
->                container_name: wp-06
->                depends_on:
->                        - db
->               
->                image: wordpress:latest
->                volumes:
->                        - ./src/themes:/var/www/html/wp-content/themes
->                        - ./src/plugins:/var/www/html/wp-content/plugins
->                        - ./src/uploads:/var/www/html/wp-content/uploads
->                        - ./php.ini:/usr/local/etc/php/conf.d/php.ini
->                ports:
->                        - "8000:80"
->                env_file: .env
->                restart: ${RESTART}
->
->                environment:
->                        WORDPRESS_DB_HOST: db:3306
->                        WORDPRESS_DB_USER: ${MYSQL_USER}
->                        WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
->                        WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
->
->
->        phpmyadmin:
->                container_name: php-06
->                image: phpmyadmin/phpmyadmin
->                depends_on:
->                        - db
->                environment:
->                        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
->                ports:
->                        - "8080:80"
->                restart: ${RESTART}
->                       
-> volumes:
->        db_data: {}
+```
+version: '3.3'
+
+services:
+        db:
+                container_name: mysql-06
+                env_file: .env
+                image: mysql:${MYSQL_TAG}
+                volumes:
+                        - ./db_data:/var/lib/mysql
+                environment:
+                        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+                        MYSQL_DATABASE: ${MYSQL_DATABASE}
+                        MYSQL_USER: ${MYSQL_USER}
+                        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+        wordpress:
+                container_name: wp-06
+                depends_on:
+                        - db
+               
+                image: wordpress:latest
+                volumes:
+                        - ./src/themes:/var/www/html/wp-content/themes
+                        - ./src/plugins:/var/www/html/wp-content/plugins
+                        - ./src/uploads:/var/www/html/wp-content/uploads
+                        - ./php.ini:/usr/local/etc/php/conf.d/php.ini
+                ports:
+                        - "8000:80"
+                env_file: .env
+                restart: ${RESTART}
+
+                environment:
+                        WORDPRESS_DB_HOST: db:3306
+                        WORDPRESS_DB_USER: ${MYSQL_USER}
+                        WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+                        WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+
+
+        phpmyadmin:
+                container_name: php-06
+                image: phpmyadmin/phpmyadmin
+                depends_on:
+                        - db
+                environment:
+                        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+                ports:
+                        - "8080:80"
+                restart: ${RESTART}
+                       
+volumes:
+        db_data: {}
+```
 
 
 #### Container de mySQL
@@ -136,10 +138,10 @@ Existen algunas configuraciones recomendadas para php.ini que hacen que Wordpres
 ### 3do: Cómo correrlo
 
 Para poder ejecutar el *docker-compose.yml* utilizar los siguientes comandos:
-```
-sudo docker-compose build *(la primera vez)*
-sudo docker-compose up
-```
+**La primera vez**
+`sudo docker-compose build`
+**Luego**
+`sudo docker-compose up`
 
 Para ir a la página web creada, debemos ir al brower y escribir en la barra de direcciones: *localhost:8080*
 
