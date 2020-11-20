@@ -143,16 +143,16 @@ Para poder ejecutar el *docker-compose.yml* utilizar los siguientes comandos:
 **Luego**
 `sudo docker-compose up`
 
-Para ir a la página web creada, debemos ir al brower y escribir en la barra de direcciones: *localhost:8080*
+Para ir a la página web creada, debemos ir al brower y escribir en la barra de direcciones: *localhost:8000*
 
 
 
 ### 4to: Cómo usar PLUGINS y THEMES
 
-Vamos a detallar el paso a paso de la instalación de los Plugins. Primero, vamos a ir a la página wordpress.org. Ahí vamos a ir al ítem Plugins, en donde van a aparecer todos los plugins que podemos descargar. Aquellos que tienen una etiqueta de PRO, es que son pagos, el resto van a ser gratis. Para nuestra página, vamos a descargar el plugin de **ELEMENTOR**, por lo que estuvimos viendo es uno de los más comunes y muy simple de usar.  Una vez descargado, se va a guardar en la carpeta Downloads. Entonces, lo movemos a la carpeta *plugins* que habíamos creado antes. Una vez ahí, pasamos a descomprimirlo, ya que está comprimido como un archivo ZIP. 
+Vamos a detallar el paso a paso de la instalación de los Plugins. Primero, vamos a ir a la página *wordpress.org*. Ahí vamos a ir al ítem *Plugins*, en donde van a aparecer todos los plugins que podemos descargar. Aquellos que tienen una etiqueta de PRO, es que son pagos, el resto van a ser gratis. Para nuestra página, vamos a descargar el plugin de **ELEMENTOR**, por lo que estuvimos viendo es uno de los más comunes y muy simple de usar.  Una vez descargado, se va a guardar en la carpeta *Downloads*. Entonces, lo movemos a la carpeta *plugins* que habíamos creado antes. Una vez ahí, pasamos a descomprimirlo, ya que está comprimido como un archivo ZIP. 
 Así de sencillo, con estos simples pasos podemos cargar cualquier plugins a nuestro docker-compose.
 
-La instalación de los temas se realiza de igual manera que los plugins. Vamos a ir a la misma página wordpress.org , y ahí vamos a seleccionar temas. Nosotros descargamos el **ASTRA**, el cual es uno muy usado. Los pasos para la descompresión son los mismos, excepto que ahora lo vamos a mover a la carpera *src/themes*.
+La instalación de los temas se realiza de igual manera que los plugins. Vamos a ir a la misma página *wordpress.org* , y ahí vamos a seleccionar *Themes*. Nosotros descargamos el **ASTRA**, el cual es uno muy usado. Los pasos para la descompresión son los mismos, excepto que ahora lo vamos a mover a la carpera *src/themes*.
 Una vez descomprimido en esa carpeta, cuando iniciemos nuestro docker-compose ya va a estar listo para su uso. 
 De esta forma, podemos cargar los plugins y temas que queramos.
 
